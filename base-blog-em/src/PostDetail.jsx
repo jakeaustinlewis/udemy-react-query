@@ -2,15 +2,9 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 async function fetchComments(postId) {
-  let response;
-  try {
-    response = await fetch(
-      `https://jsonplaceholder.typicoasdfasdfasdfde.com/comments?postId=${postId}`
-    );
-  } catch (e) {
-    throw new Error('HELLOOOOO');
-  }
-
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+  );
   return response.json();
 }
 
@@ -32,7 +26,7 @@ async function updatePost(postId) {
 
 export function PostDetail({ post }) {
   // replace with useQuery
-  const { data, isLoading, isError, error } = useQuery(['comments', post.id], () => fetchComments(post.id), { staleTime: 50000 })
+  const { data, isLoading, isError, error } = useQuery(['comments', post.id], () => fetchComments(post.id), { staleTime: 0 })
 
   if (isLoading) {
     return <h3>Loading...</h3>;
